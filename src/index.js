@@ -18,6 +18,7 @@ export default class VideoLooper extends React.Component {
         height: PropTypes.string,
         objectFit: PropTypes.string,
         objectPosition: PropTypes.string,
+        onFinish: PropTypes.func
     };
 
     static defaultProps = {
@@ -30,7 +31,8 @@ export default class VideoLooper extends React.Component {
         width: '100%',
         height: '100vh',
         objectFit: 'cover',
-        objectPosition: '40%'
+        objectPosition: '40%',
+        onFinish: () => {}
     };
 
     constructor(props) {
@@ -115,7 +117,7 @@ export default class VideoLooper extends React.Component {
         if (currentVideo.currentTime >= this.props.end && (!this.props.loopCount || this.state.currentLoop < this.props.loopCount) ) {    
 
             nextVideo.play();
-    
+            onFinish();
             this.setState({ 
                 isVideoCloneActive: !this.state.isVideoCloneActive,
                 currentLoop: this.state.currentLoop + 1
